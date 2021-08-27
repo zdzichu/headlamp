@@ -14,6 +14,7 @@ export const UI_SIDEBAR_SET_ITEM = 'UI_SIDEBAR_SET_ITEM';
 export const UI_SIDEBAR_SET_EXPANDED = 'UI_SIDEBAR_SET_EXPANDED';
 export const UI_ROUTER_SET_ROUTE = 'UI_ROUTER_SET_ROUTE';
 export const UI_DETAILS_VIEW_SET_HEADER_ACTION = 'UI_DETAILS_VIEW_SET_HEADER_ACTION';
+export const UI_SET_DETAILS_VIEW = 'UI_SET_DETAILS_VIEW';
 export const UI_APP_BAR_SET_ACTION = 'UI_APP_BAR_SET_ACTION';
 export const UI_THEME_SET = 'UI_THEME_SET';
 
@@ -59,6 +60,7 @@ export interface Action {
 type SidebarType = UIState['sidebar'];
 
 export type HeaderActionFunc = (...args: any[]) => JSX.Element | null;
+export type DetailsViewFunc = HeaderActionFunc;
 
 export function setNamespaceFilter(namespaces: string[]) {
   return { type: FILTER_SET_NAMESPACE, namespaces: namespaces };
@@ -111,6 +113,19 @@ export function setRoute(routeSpec: any) {
 
 export function setDetailsViewHeaderAction(actionName: string, actionFunc: HeaderActionFunc) {
   return { type: UI_DETAILS_VIEW_SET_HEADER_ACTION, name: actionName, action: actionFunc };
+}
+
+export function setDetailsView(
+  resourceKind: string,
+  sectionTitle: string | JSX.Element | null,
+  sectionFunc: (...args: any[]) => JSX.Element | null
+) {
+  return {
+    type: UI_SET_DETAILS_VIEW,
+    resourceKind,
+    action: sectionFunc,
+    sectionTitle,
+  };
 }
 
 export function setAppBarAction(actionName: string, actionFunc: HeaderActionFunc) {

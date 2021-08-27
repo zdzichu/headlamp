@@ -1,6 +1,7 @@
 import { Route } from '../lib/router';
 import {
   setAppBarAction,
+  setDetailsView,
   setDetailsViewHeaderAction,
   setRoute,
   setSidebarItem,
@@ -100,5 +101,26 @@ export default class Registry {
    */
   registerAppBarAction(actionName: string, actionFunc: (...args: any[]) => JSX.Element | null) {
     store.dispatch(setAppBarAction(actionName, actionFunc));
+  }
+
+  /**
+   * Append the specified title and component to the details view.
+   *
+   * @param resourceKind - name of the resource you want to append the details component
+   * @param sectionTitle - Title of the detail section
+   * @param sectionFunc - a function that returns your detail view component
+   *
+   * @example
+   *
+   * ```JSX
+   * register.registerDetailsViewSection("Node", "Block I/O Latency", () => <BioLatency />);
+   * ```
+   */
+  registerDetailsViewSection(
+    resourceKind: string,
+    sectionTitle: string | JSX.Element | null,
+    sectionFunc: (...args: any[]) => JSX.Element | null
+  ) {
+    store.dispatch(setDetailsView(resourceKind, sectionTitle, sectionFunc));
   }
 }
