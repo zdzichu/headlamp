@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLinkProps, useLocation, useParams } from 'react-router-dom';
+import DetailsViewRenderMapper from '../../helpers/renderHelpers';
 import { KubeObject, Workload } from '../../lib/k8s/cluster';
 import {
   ContainersSection,
@@ -48,6 +49,7 @@ export default function WorkloadDetails(props: WorkloadDetailsProps) {
       />
       <ReplicasSection resource={item?.jsonData} />
       <ContainersSection resource={item?.jsonData} />
+      <DetailsViewRenderMapper kind={item?.jsonData.kind} />
     </PageGrid>
   );
 }
